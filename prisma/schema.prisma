@@ -1,0 +1,50 @@
+// Prisma schema for MVP (fixed back relation)
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Workflow {
+  id        String         @id @default(cuid())
+  name      String
+  createdAt DateTime       @default(now())
+  steps     WorkflowStep[]
+  instances WorkflowInstance[]
+}
+
+model WorkflowStep {
+  id             String         @id @default(cuid())
+  workflowId     String
+  name           String
+  position       Int
+  workflow       Workflow       @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  instanceSteps  InstanceStep[]
+  @@index([workflowId])
+}
+
+model WorkflowInstance {
+  id         String              @id @default(cuid())
+  workflowId String
+  status     String              @default("active") // active | completed | cancelled
+  createdAt  DateTime            @default(now())
+  workflow   Workflow            @relation(fields: [workflowId], references: [id])
+  steps      InstanceStep[]
+  @@index([workflowId])
+}
+
+model InstanceStep {
+  id           String            @id @default(cuid())
+  instanceId   String
+  stepId       String
+  status       String            @default("pending") // pending | active | done
+  activatedAt  DateTime?
+  completedAt  DateTime?
+  instance     WorkflowInstance  @relation(fields: [instanceId], references: [id], onDelete: Cascade)
+  step         WorkflowStep      @relation(fields: [stepId], references: [id])
+  @@index([instanceId])
+  @@index([stepId])
+}
