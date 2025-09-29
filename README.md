@@ -1,23 +1,24 @@
-# Smart Workflow Orchestrator — Starter Kit (Fixed)
-Endringer:
-- FIKS 1: Prisma relasjon (`WorkflowStep` har nå motsatt felt `instanceSteps`).
-- FIKS 2: TypeScript kjører i CommonJS-modus (enkelt med ts-node-dev).
+# Workflow Orchestrator — Next.js Frontend
 
-## Rask start
-1) Start Postgres
-```bash
-cd infra
-cp .env.example .env
-docker compose up -d
-cd ..
-```
+En enkel Next.js-app som snakker med API-et ditt (http://localhost:3001).
 
-2) Start API
+## Kom i gang
 ```bash
-cd workflow-orchestrator-api
-cp .env.example .env
+# i denne mappen
+cp .env.example .env.local
 npm install
-npx prisma migrate dev --name init
 npm run dev
+# åpne http://localhost:3000
 ```
-API: http://localhost:3001
+
+## Konfigurasjon
+- Sett API-base i `.env.local`:
+```
+NEXT_PUBLIC_API_BASE=http://localhost:3001
+```
+
+## Hva kan du gjøre?
+- Opprette workflow-mal (navn + steg)
+- Starte instans fra en mal
+- Se alle instanser og status
+- Fullføre aktivt steg for valgt instans

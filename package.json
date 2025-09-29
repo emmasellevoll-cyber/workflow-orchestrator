@@ -1,23 +1,24 @@
 {
-  "name": "workflow-orchestrator-api",
-  "version": "0.1.1",
+  "name": "workflow-orchestrator-web",
+  "version": "0.1.0",
   "private": true,
-  "type": "commonjs",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "build": "tsc -p tsconfig.json",
-    "start": "node dist/server.js",
-    "prisma:generate": "prisma generate"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "@prisma/client": "^5.18.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2"
+    "next": "14.2.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "prisma": "^5.18.0",
-    "ts-node-dev": "^2.0.0",
-    "typescript": "^5.4.0"
+    "@types/node": "^20.11.25",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "typescript": "^5.4.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.5"
   }
 }
